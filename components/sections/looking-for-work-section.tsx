@@ -74,7 +74,15 @@ export function LookingForWorkSection() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Header Section */}
         <div className="mb-20 text-center">
-          <p className="mb-4 inline-flex items-center rounded-full border border-blue-200/50 bg-blue-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-blue-600 shadow-sm">
+          <p
+            className="mb-5 inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] shadow-sm backdrop-blur-md"
+            style={{ color: "#ec1561" }}
+          >
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ background: "#ec1561" }}
+              aria-hidden
+            />
             Looking for work
           </p>
           <h2 className="font-serif text-4xl font-medium tracking-tight text-slate-900 sm:text-5xl">

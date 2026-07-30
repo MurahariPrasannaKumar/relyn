@@ -1,5 +1,7 @@
 import { cn } from "@/lib/utils";
 
+const ACCENT = "#ec1561";
+
 export function SectionHeading({
   eyebrow,
   title,
@@ -22,7 +24,18 @@ export function SectionHeading({
       )}
     >
       {eyebrow ? (
-        <p className="mb-4 inline-flex rounded-full border border-primary/10 bg-primary/5 px-3 py-1 text-xs font-800 uppercase tracking-[0.16em] text-primary">
+        <p
+          className={cn(
+            "mb-5 inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] shadow-sm backdrop-blur-md",
+            align === "center" ? "" : "mx-0"
+          )}
+          style={{ color: ACCENT }}
+        >
+          <span
+            className="h-1.5 w-1.5 rounded-full"
+            style={{ background: ACCENT }}
+            aria-hidden
+          />
           {eyebrow}
         </p>
       ) : null}
@@ -30,7 +43,7 @@ export function SectionHeading({
         {title}
       </h2>
       {description ? (
-        <p className="mt-4 text-lg leading-8 text-muted">{description}</p>
+        <p className="mt-6 text-lg leading-8 text-muted">{description}</p>
       ) : null}
     </div>
   );

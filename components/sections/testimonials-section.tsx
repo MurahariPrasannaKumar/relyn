@@ -142,7 +142,15 @@ export function TestimonialsSection() {
 
       {/* ── Header ── */}
       <div className="relative z-10 max-w-[1300px] mx-auto px-6 lg:px-16 mb-16 text-center">
-        <span className="block text-[15px] font-medium tracking-wide text-gray-900 mb-4 uppercase">
+        <span
+          className="mb-5 inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] shadow-sm backdrop-blur-md"
+          style={{ color: "#ec1561" }}
+        >
+          <span
+            className="h-1.5 w-1.5 rounded-full"
+            style={{ background: "#ec1561" }}
+            aria-hidden
+          />
           Customer Stories
         </span>
 

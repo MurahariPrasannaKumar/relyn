@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { CheckCircle2, Sparkles } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { Section } from "@/components/ui/section";
 
 const steps = [
@@ -51,8 +51,15 @@ export function HowItWorksSection() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/60 px-4 py-1.5 text-[11px] font-700 uppercase tracking-[0.2em] text-black/55">
-              <Sparkles className="h-3 w-3" />
+            <div
+              className="inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] shadow-sm backdrop-blur-md"
+              style={{ color: "#ec1561" }}
+            >
+              <span
+                className="h-1.5 w-1.5 rounded-full"
+                style={{ background: "#ec1561" }}
+                aria-hidden
+              />
               How It Works
             </div>
             <h2 className="mt-8 font-display text-4xl tracking-tight text-black sm:text-5xl lg:text-6xl">

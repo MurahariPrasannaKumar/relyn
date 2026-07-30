@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { MapPin } from "lucide-react";
 import { Section } from "@/components/ui/section";
 
 const ACCENT = "#ec1561";
@@ -69,7 +70,7 @@ export function AreasSection() {
   const paths = edges.map((edge) =>
     curve(nodes[edge.from], nodes[edge.to], edge.bow),
   );
-  const DOTS_PER_PATH = 1; // Number of moving points per connection
+  const DOTS_PER_PATH = 3; // Number of moving points per connection
 
   return (
     <Section className="relative overflow-hidden bg-background py-24">
@@ -124,9 +125,9 @@ export function AreasSection() {
               d={d}
               fill="none"
               stroke={ACCENT}
-              strokeOpacity={0.25}
-              strokeWidth="0.25"
-              strokeDasharray="1 2"
+              strokeOpacity={0.18}
+              strokeWidth="0.18"
+              strokeDasharray="1 2.2"
               strokeLinecap="round"
               initial={{ pathLength: 0, opacity: 0 }}
               whileInView={{ pathLength: 1, opacity: 1 }}
@@ -140,9 +141,10 @@ export function AreasSection() {
             Array.from({ length: DOTS_PER_PATH }).map((_, j) => (
               <circle
                 key={`dot-${i}-${j}`}
-                r="0.5"
+                r="0.32"
                 fill={ACCENT}
-                className={`areas-travel-dot-${i}-${j} shadow-[0_0_8px_${ACCENT}]`}
+                style={{ filter: `drop-shadow(0 0 1.5px ${ACCENT})` }}
+                className={`areas-travel-dot-${i}-${j}`}
               />
             )),
           )}
@@ -155,36 +157,49 @@ export function AreasSection() {
             style={{ left: `${node.x}%`, top: `${node.y}%` }}
           >
             <div className="relative flex flex-col items-center group cursor-default">
+              {/* Pulsing dot marks the exact coordinate; pin sits on top pointing down at it */}
               <span
                 className="relative flex items-center justify-center"
                 style={{
-                  height: node.hub ? 20 : 16,
-                  width: node.hub ? 20 : 16,
+                  height: node.hub ? 14 : 11,
+                  width: node.hub ? 14 : 11,
                 }}
               >
+                <MapPin
+                  className="absolute bottom-full left-1/2 -translate-x-1/2 mb-0.5 transition-transform duration-300 group-hover:-translate-y-0.5"
+                  style={{
+                    height: node.hub ? 16 : 14,
+                    width: node.hub ? 16 : 14,
+                    color: node.hub ? ACCENT : "#64748b",
+                    fill: "none",
+                  }}
+                  strokeWidth={1.75}
+                />
                 <motion.span
                   className="absolute inline-flex h-full w-full rounded-full"
                   style={{
                     background: node.hub
-                      ? `${ACCENT}40`
-                      : "rgba(236,21,97,0.15)",
+                      ? `${ACCENT}30`
+                      : "rgba(236,21,97,0.12)",
                   }}
                   animate={{
-                    scale: node.hub ? [1, 2.8] : [1, 2],
-                    opacity: [0.8, 0],
+                    scale: node.hub ? [1, 2.2] : [1, 1.7],
+                    opacity: [0.7, 0],
                   }}
                   transition={{
-                    duration: node.hub ? 2 : 2.5,
+                    duration: node.hub ? 1.4 : 1.7,
                     repeat: Infinity,
                     ease: "easeOut",
                   }}
                 />
                 <span
-                  className="relative rounded-full border-[2.5px] border-white shadow-md transition-transform duration-300 group-hover:scale-125"
+                  className="relative rounded-full border-2 border-white shadow-[0_2px_6px_rgba(15,23,42,0.2)] transition-transform duration-300 group-hover:scale-125"
                   style={{
-                    height: node.hub ? 12 : 10,
-                    width: node.hub ? 12 : 10,
-                    background: node.hub ? ACCENT : "#1e293b",
+                    height: node.hub ? 8 : 6.5,
+                    width: node.hub ? 8 : 6.5,
+                    background: node.hub
+                      ? `linear-gradient(135deg, ${ACCENT}, #b3104a)`
+                      : "linear-gradient(135deg, #334155, #0f172a)",
                   }}
                 />
               </span>
@@ -214,7 +229,7 @@ export function AreasSection() {
               (_, j) => `
               .areas-travel-dot-${i}-${j} {
                 offset-path: path('${d}');
-                animation: areas-travel 7.5s ease-in-out ${i * 0.5 + j * 2.5}s infinite;
+                animation: areas-travel 4s ease-in-out ${i * 0.3 + j * 1.4}s infinite;
               }
             `,
             ),
