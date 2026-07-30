@@ -55,6 +55,58 @@ const coreValues = [
   },
 ];
 
+// A scalloped "seal" outline (like a certification stamp) instead of a plain
+// rounded square, so the value badges read as bespoke marks rather than a
+// generic icon-in-a-box template.
+function sealPath(bumps = 14, outerR = 46, innerR = 41, steps = 240) {
+  let d = "";
+  for (let i = 0; i <= steps; i++) {
+    const t = (i / steps) * Math.PI * 2;
+    const r = innerR + (outerR - innerR) * (0.5 + 0.5 * Math.cos(bumps * t));
+    const x = 50 + r * Math.cos(t);
+    const y = 50 + r * Math.sin(t);
+    d += `${i === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)} `;
+  }
+  return `${d}Z`;
+}
+
+const SEAL_PATH = sealPath();
+
+function ValueSeal({
+  icon: Icon,
+  index,
+}: {
+  icon: (typeof coreValues)[number]["icon"];
+  index: number;
+}) {
+  const gradId = `value-seal-${index}`;
+  return (
+    <div className="relative mb-6 flex h-16 w-16 items-center justify-center">
+      <svg
+        viewBox="0 0 100 100"
+        className="absolute inset-0 h-full w-full transition-transform duration-700 ease-out group-hover:rotate-[18deg]"
+      >
+        <defs>
+          <linearGradient id={gradId} x1="15%" y1="10%" x2="90%" y2="95%">
+            <stop offset="0%" stopColor="#ff5c94" />
+            <stop offset="100%" stopColor="#a80f42" />
+          </linearGradient>
+        </defs>
+        <path d={SEAL_PATH} fill={`url(#${gradId})`} />
+        <circle
+          cx="50"
+          cy="50"
+          r="33"
+          fill="none"
+          stroke="rgba(255,255,255,0.4)"
+          strokeWidth="1.5"
+        />
+      </svg>
+      <Icon className="relative z-10 h-6 w-6 text-white" strokeWidth={2} />
+    </div>
+  );
+}
+
 export function TrustStorySection() {
   const [activeImage, setActiveImage] = useState(0);
 
@@ -173,16 +225,13 @@ export function TrustStorySection() {
 
         {/* BENTO BLOCKS 3, 4, 5: Core Values (Span 4 columns each) */}
         {coreValues.map((value, index) => {
-          const Icon = value.icon;
           return (
             <motion.div
               key={value.title}
               variants={bentoItem}
               className="group relative overflow-hidden rounded-[32px] border border-border/60 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:ring-1 hover:ring-[#ec1561]/20 lg:col-span-4"
             >
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#ec1561]/5 text-[#ec1561] transition-colors duration-300 group-hover:bg-[#ec1561] group-hover:text-white">
-                <Icon className="h-6 w-6" />
-              </div>
+              <ValueSeal icon={value.icon} index={index} />
               <h4 className="mb-3 text-xl font-800 text-ink">{value.title}</h4>
               <p className="text-base leading-relaxed text-muted">
                 {value.description}
