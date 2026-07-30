@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
-import { HeroOrbitCarousel } from "@/components/hero/HeroOrbitCarousel";
+import { HeroOrbitCarousel, heroImages } from "@/components/hero/HeroOrbitCarousel";
 import { ParticleField } from "@/components/ui/ParticleField";
 import { PrimaryCTA } from "@/components/ui/PrimaryCTA";
 import { TextLink } from "@/components/ui/TextLink";
@@ -31,9 +32,7 @@ export function HeroSection() {
 
 export function Hero3D() {
   const [showHeroContent, setShowHeroContent] = useState(false);
-  const [activeHeroBackground, setActiveHeroBackground] = useState<string | null>(
-    null
-  );
+  const [activeHeroBackground, setActiveHeroBackground] = useState<string>("");
   const [showCarousel, setShowCarousel] = useState(false);
 
   useEffect(() => {
@@ -54,16 +53,20 @@ export function Hero3D() {
 
   return (
     <section className="relative isolate min-h-[100svh] w-full max-w-full overflow-hidden bg-background">
-      <div
-        className="absolute inset-0 z-[-2] bg-background bg-cover bg-center transition-opacity duration-700"
-        style={{
-          backgroundImage: activeHeroBackground
-            ? `url(${activeHeroBackground})`
-            : undefined,
-          opacity: activeHeroBackground ? 1 : 0
-        }}
-        aria-hidden
-      />
+      <div className="absolute inset-0 z-[-2] bg-background" aria-hidden>
+        {heroImages.map((src) => (
+          <Image
+            key={src}
+            src={src}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover transition-opacity duration-[1400ms] ease-in-out"
+            style={{ opacity: activeHeroBackground === src ? 1 : 0 }}
+          />
+        ))}
+      </div>
       <div className="absolute inset-y-0 left-0 z-[-1] w-full max-w-3xl bg-gradient-to-r from-background/95 via-background/55 to-transparent" />
 
       <div className="pointer-events-none absolute inset-0 opacity-[0.28]">

@@ -4,7 +4,7 @@ import React, { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 
-const heroImages = [
+export const heroImages = [
   "/img-01.jpg",
   "/img-02.jpg",
   "/img-03.jpg",
@@ -31,7 +31,7 @@ export function HeroOrbitCarousel({
   const stageRef = useRef<HTMLDivElement | null>(null);
   const itemsRef = useRef<Array<HTMLDivElement | null>>([]);
   const hasShownContentRef = useRef(false);
-  const activeIndexRef = useRef(0);
+  const activeIndexRef = useRef(-1);
 
   useLayoutEffect(() => {
     const root = rootRef.current;
@@ -127,8 +127,6 @@ export function HeroOrbitCarousel({
         }, intervalMs);
       };
 
-      startBackgroundTicker(prefersReducedMotion ? 3600 : 3200);
-
       const tl = gsap.timeline({ defaults: { overwrite: "auto" } });
 
       if (prefersReducedMotion) {
@@ -150,6 +148,8 @@ export function HeroOrbitCarousel({
           hasShownContentRef.current = true;
           onHorizontalStart?.();
         }
+
+        startBackgroundTicker(3600);
 
         gsap.to(items, {
           x: getMarqueeX,
@@ -200,6 +200,8 @@ export function HeroOrbitCarousel({
             onHorizontalStart?.();
           }
 
+          startBackgroundTicker(3200);
+
           gsap.to(items, {
             x: getMarqueeX,
             duration: 48,
@@ -236,7 +238,7 @@ export function HeroOrbitCarousel({
             }}
             className="absolute left-1/2 top-1/2 contain-[layout_paint_style] will-change-transform"
           >
-            <div className="relative h-[110px] w-[192px] overflow-hidden bg-black/5 sm:h-[130px] sm:w-[224px] lg:h-[160px] lg:w-[272px]">
+            <div className="relative h-[110px] w-[192px] overflow-hidden rounded-2xl bg-black/5 sm:h-[130px] sm:w-[224px] lg:h-[160px] lg:w-[272px]">
               <Image
                 src={src}
                 alt=""
