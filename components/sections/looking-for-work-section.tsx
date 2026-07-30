@@ -106,7 +106,7 @@ export function LookingForWorkSection() {
           <div className="absolute left-[10%] right-[10%] top-10 hidden h-[2px] rounded-full bg-slate-200 lg:block">
             {/* The moving energy pulse */}
             <motion.div
-              className="absolute left-0 top-1/2 h-1 w-24 -translate-y-1/2 rounded-full bg-blue-600 shadow-[0_0_12px_rgba(37,99,235,0.6)]"
+              className="absolute left-0 top-1/2 h-1 w-24 -translate-y-1/2 rounded-full bg-[#ec1561] shadow-[0_0_12px_rgba(236,21,97,0.6)]"
               animate={{
                 left: ["0%", "100%"],
                 opacity: [0, 1, 1, 0],
@@ -169,10 +169,9 @@ export function LookingForWorkSection() {
         >
           <Button
             href="#contact"
-            className="group relative flex h-14 items-center gap-3 overflow-hidden rounded-full bg-slate-900 px-8 text-base font-medium text-white transition-all hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-900/20"
+            className="relative h-14 overflow-hidden rounded-full bg-slate-900 px-8 text-base font-medium text-white transition-all hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-900/20"
           >
-            <span>Register as a Household Professional</span>
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            Register as a Household Professional
           </Button>
         </motion.div>
       </div>

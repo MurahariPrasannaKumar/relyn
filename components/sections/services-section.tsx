@@ -16,8 +16,7 @@ const services = [
     description:
       "Dependable support for everyday home care, cleaning routines, and consistent household upkeep.",
     features: ["Routine cleaning", "Home organization", "Flexible requirements"],
-    petals: 8,
-    twist: 0
+    graphic: "housekeeping"
   },
   {
     id: "02",
@@ -25,8 +24,7 @@ const services = [
     description:
       "Verified cooks for families looking for consistent, home-style meals and daily kitchen support.",
     features: ["Daily meals", "Regional preferences", "Kitchen assistance"],
-    petals: 7,
-    twist: 12
+    graphic: "cooking"
   },
   {
     id: "03",
@@ -34,8 +32,7 @@ const services = [
     description:
       "Empathetic, experienced caregivers who ensure a safe, engaging environment for your children.",
     features: ["Infant care", "Toddler engagement", "School routines"],
-    petals: 5,
-    twist: -8
+    graphic: "childcare"
   },
   {
     id: "04",
@@ -43,8 +40,7 @@ const services = [
     description:
       "Compassionate companionship and daily assistance tailored for the comfort and dignity of seniors.",
     features: ["Daily assistance", "Medication prompts", "Companionship"],
-    petals: 6,
-    twist: 20
+    graphic: "eldercare"
   },
   {
     id: "05",
@@ -52,56 +48,223 @@ const services = [
     description:
       "Reliable, background-checked chauffeurs for daily commutes, school runs, and family travel.",
     features: ["City commutes", "School drop-offs", "Vehicle maintenance"],
-    petals: 9,
-    twist: -15
+    graphic: "drivers"
   }
-];
+] as const;
 
-function AbstractBloom({
-  petals,
-  twist,
-  seed
-}: {
-  petals: number;
-  twist: number;
-  seed: number;
-}) {
-  const items = Array.from({ length: petals });
-  const gradId = `bloom-grad-${seed}`;
+function ServiceGraphic({ variant, seed }: { variant: string; seed: number }) {
+  const gradId = `service-grad-${seed}`;
+  const sheenId = `service-sheen-${seed}`;
 
+  // Shared glossy-petal shading: a diagonal light-to-dark sweep applied in each
+  // petal's own local (pre-rotation) bounding box, so every petal reads as lit
+  // from the same direction regardless of how it's rotated around the center.
+  const defs = (
+    <>
+      <linearGradient id={gradId} x1="15%" y1="8%" x2="88%" y2="95%">
+        <stop offset="0%" stopColor="#ffffff" />
+        <stop offset="32%" stopColor="#ececec" />
+        <stop offset="60%" stopColor="#c2c2c2" />
+        <stop offset="100%" stopColor="#7f7f7f" />
+      </linearGradient>
+      <radialGradient id={sheenId} cx="30%" cy="20%" r="70%">
+        <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
+        <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+      </radialGradient>
+    </>
+  );
+
+  const wrapperStyle = { filter: "drop-shadow(0 30px 45px rgba(0,0,0,0.18))" };
+
+  // A single "petal": a tall ellipse rotated out from the center, its own
+  // gradient rotating with it for a consistent glossy highlight per blade.
+  function Petal({
+    angle,
+    rx,
+    ry,
+    cy,
+    opacity = 1
+  }: {
+    angle: number;
+    rx: number;
+    ry: number;
+    cy: number;
+    opacity?: number;
+  }) {
+    return (
+      <ellipse
+        cx="0"
+        cy={cy}
+        rx={rx}
+        ry={ry}
+        fill={`url(#${gradId})`}
+        stroke="rgba(0,0,0,0.04)"
+        transform={`rotate(${angle})`}
+        opacity={opacity}
+      />
+    );
+  }
+
+  if (variant === "housekeeping") {
+    // Wide, rounded bloom of fat overlapping petals
+    const count = 7;
+    const petals = Array.from({ length: count });
+    return (
+      <motion.svg
+        viewBox="0 0 400 400"
+        className="h-full w-full"
+        style={wrapperStyle}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 46, ease: "linear", repeat: Infinity }}
+      >
+        <defs>{defs}</defs>
+        <g transform="translate(200,200)">
+          {petals.map((_, index) => (
+            <Petal
+              key={index}
+              angle={(360 / count) * index}
+              rx={70}
+              ry={100}
+              cy={-78}
+              opacity={0.96}
+            />
+          ))}
+          <circle r="20" fill={`url(#${sheenId})`} />
+          <circle r="20" fill="none" stroke="rgba(0,0,0,0.06)" />
+        </g>
+      </motion.svg>
+    );
+  }
+
+  if (variant === "cooking") {
+    // Twisted swirl ribbons wrapped inside a sphere, like folded batter
+    const clipId = `service-clip-${seed}`;
+    const ribbons = [
+      { d: "M -170 -60 C -60 -130, 60 10, 170 -60", width: 34 },
+      { d: "M -170 20 C -60 -50, 60 90, 170 20", width: 30 },
+      { d: "M -170 100 C -60 30, 60 170, 170 100", width: 26 }
+    ];
+    return (
+      <motion.svg
+        viewBox="0 0 400 400"
+        className="h-full w-full"
+        style={wrapperStyle}
+        animate={{ rotate: [0, 8, 0, -8, 0] }}
+        transition={{ duration: 7, ease: "easeInOut", repeat: Infinity }}
+      >
+        <defs>
+          {defs}
+          <clipPath id={clipId}>
+            <circle cx="0" cy="0" r="150" />
+          </clipPath>
+        </defs>
+        <g transform="translate(200,200)">
+          <circle r="150" fill={`url(#${gradId})`} />
+          <g clipPath={`url(#${clipId})`}>
+            {ribbons.map((band, i) => (
+              <path
+                key={i}
+                d={band.d}
+                fill="none"
+                stroke="#f4f4f4"
+                strokeWidth={band.width}
+                strokeLinecap="round"
+                opacity={0.85 - i * 0.1}
+              />
+            ))}
+          </g>
+          <circle r="150" fill={`url(#${sheenId})`} />
+        </g>
+      </motion.svg>
+    );
+  }
+
+  if (variant === "childcare") {
+    // Soft flower, gently fanned but balanced and centered
+    const count = 7;
+    const petals = Array.from({ length: count });
+    return (
+      <motion.svg
+        viewBox="0 0 400 400"
+        className="h-full w-full"
+        style={wrapperStyle}
+        animate={{ rotate: [0, 8, 0, -8, 0] }}
+        transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
+      >
+        <defs>{defs}</defs>
+        <g transform="translate(200,200)">
+          {petals.map((_, index) => (
+            <Petal
+              key={index}
+              angle={-90 + (index * 180) / (count - 1)}
+              rx={32}
+              ry={88}
+              cy={-92}
+              opacity={0.95}
+            />
+          ))}
+          <circle r="18" fill={`url(#${sheenId})`} />
+          <circle r="18" fill="none" stroke="rgba(0,0,0,0.06)" />
+        </g>
+      </motion.svg>
+    );
+  }
+
+  if (variant === "eldercare") {
+    // Gentle pinwheel with an extra twist per petal, evoking a calm embrace
+    const count = 7;
+    const petals = Array.from({ length: count });
+    return (
+      <motion.svg
+        viewBox="0 0 400 400"
+        className="h-full w-full"
+        style={wrapperStyle}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 60, ease: "linear", repeat: Infinity }}
+      >
+        <defs>{defs}</defs>
+        <g transform="translate(200,200)">
+          {petals.map((_, index) => (
+            <Petal
+              key={index}
+              angle={(360 / count) * index + 14}
+              rx={38}
+              ry={118}
+              cy={-92}
+              opacity={0.95}
+            />
+          ))}
+          <circle r="17" fill={`url(#${sheenId})`} />
+          <circle r="17" fill="none" stroke="rgba(0,0,0,0.06)" />
+        </g>
+      </motion.svg>
+    );
+  }
+
+  // drivers: sharp radiating star burst, evoking motion and speed
+  const count = 8;
+  const spikes = Array.from({ length: count });
   return (
     <motion.svg
       viewBox="0 0 400 400"
       className="h-full w-full"
-      style={{ filter: "drop-shadow(0 40px 60px rgba(0,0,0,0.16))" }}
+      style={wrapperStyle}
       animate={{ rotate: 360 }}
-      transition={{ duration: 42, ease: "linear", repeat: Infinity }}
+      transition={{ duration: 30, ease: "linear", repeat: Infinity }}
     >
-      <defs>
-        <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#fafafa" />
-          <stop offset="50%" stopColor="#cfcfcf" />
-          <stop offset="100%" stopColor="#8f8f8f" />
-        </linearGradient>
-      </defs>
+      <defs>{defs}</defs>
       <g transform="translate(200,200)">
-        {items.map((_, index) => {
-          const angle = (360 / petals) * index + twist;
-          return (
-            <ellipse
-              key={index}
-              cx="0"
-              cy="-88"
-              rx="42"
-              ry="122"
-              fill={`url(#${gradId})`}
-              stroke="rgba(0,0,0,0.05)"
-              transform={`rotate(${angle})`}
-              opacity={0.95}
-            />
-          );
-        })}
-        <circle r="16" fill="#e2e2e2" />
+        {spikes.map((_, index) => (
+          <Petal
+            key={index}
+            angle={(360 / count) * index}
+            rx={14}
+            ry={150}
+            cy={-150}
+            opacity={0.96}
+          />
+        ))}
+        <circle r="14" fill={`url(#${sheenId})`} />
       </g>
     </motion.svg>
   );
@@ -128,8 +291,25 @@ export function ServicesSection() {
   const activeService = services[activeIndex];
 
   return (
-    <section ref={containerRef} className="relative h-[500vh] bg-background">
+    <section id="services" ref={containerRef} className="relative h-[500vh] bg-background">
       <div className="sticky top-0 flex h-screen w-full items-center overflow-hidden">
+        <div className="absolute inset-x-0 top-28 z-10 mx-auto max-w-3xl px-6 text-center">
+          <p
+            className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] shadow-sm backdrop-blur-md"
+            style={{ color: "#ec1561" }}
+          >
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ background: "#ec1561" }}
+              aria-hidden
+            />
+            Services
+          </p>
+          <h2 className="font-display text-3xl tracking-tight text-ink sm:text-4xl">
+            Support built around your household.
+          </h2>
+        </div>
+
         <div className="absolute top-1/2 hidden h-[520px] w-[520px] -translate-y-1/2 -left-[360px] rounded-full border border-border/40 md:block lg:-left-[500px] lg:h-[680px] lg:w-[680px] xl:-left-[560px] xl:h-[780px] xl:w-[780px]">
           <motion.div
             className="relative h-full w-full transition-transform duration-700 ease-out"
@@ -173,7 +353,7 @@ export function ServicesSection() {
         </div>
 
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-12 px-6 lg:flex-row lg:px-12">
-          <div className="w-full md:pl-36 lg:w-5/12 lg:pl-56 xl:pl-56">
+          <div className="w-full md:pl-36 lg:w-6/12 lg:pl-56 xl:pl-56">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeService.id}
@@ -212,7 +392,7 @@ export function ServicesSection() {
             </AnimatePresence>
           </div>
 
-          <div className="w-full lg:w-5/12">
+          <div className="w-full lg:w-4/12">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeService.id}
@@ -220,13 +400,9 @@ export function ServicesSection() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.85 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="relative mx-auto aspect-square w-full max-w-md"
+                className="relative mx-auto aspect-square w-full max-w-sm"
               >
-                <AbstractBloom
-                  petals={activeService.petals}
-                  twist={activeService.twist}
-                  seed={activeIndex}
-                />
+                <ServiceGraphic variant={activeService.graphic} seed={activeIndex} />
               </motion.div>
             </AnimatePresence>
           </div>
