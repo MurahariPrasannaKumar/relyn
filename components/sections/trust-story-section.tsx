@@ -8,7 +8,6 @@ import {
   SlidersHorizontal,
   Users,
   Target,
-  Sparkles,
   ArrowRight,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -111,10 +110,9 @@ export function TrustStorySection() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-500" />
 
           <div className="relative z-10 p-8 md:p-10">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-600 text-white backdrop-blur-md">
-              <Sparkles className="h-4 w-4 text-[#ff6fa3]" />
-              <span>Built for modern homes</span>
-            </div>
+            <p className="mb-4 text-sm font-600 uppercase tracking-[0.2em] text-white">
+              Built for modern homes
+            </p>
             <h3 className="max-w-xl font-display text-3xl tracking-tight text-white md:text-4xl">
               Practical clarity instead of guesswork.
             </h3>

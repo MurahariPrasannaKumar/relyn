@@ -38,14 +38,9 @@ export function FAQSection() {
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
         <div className="lg:sticky lg:top-32 lg:h-fit">
           <span
-            className="inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] shadow-sm backdrop-blur-md"
+            className="block text-xs font-bold uppercase tracking-[0.2em]"
             style={{ color: "#ec1561" }}
           >
-            <span
-              className="h-1.5 w-1.5 rounded-full"
-              style={{ background: "#ec1561" }}
-              aria-hidden
-            />
             FAQ
           </span>
           <h2 className="mt-6 font-display text-4xl leading-[1.1] tracking-tight text-black sm:text-5xl lg:text-6xl">

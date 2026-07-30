@@ -25,17 +25,9 @@ export function SectionHeading({
     >
       {eyebrow ? (
         <p
-          className={cn(
-            "mb-5 inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] shadow-sm backdrop-blur-md",
-            align === "center" ? "" : "mx-0"
-          )}
+          className="mb-5 text-xs font-bold uppercase tracking-[0.2em]"
           style={{ color: ACCENT }}
         >
-          <span
-            className="h-1.5 w-1.5 rounded-full"
-            style={{ background: ACCENT }}
-            aria-hidden
-          />
           {eyebrow}
         </p>
       ) : null}

@@ -80,14 +80,9 @@ export function AreasSection() {
       {/* Header text */}
       <div className="relative z-20 text-center">
         <p
-          className="mb-5 inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] shadow-sm backdrop-blur-md"
+          className="mb-5 text-xs font-bold uppercase tracking-[0.2em]"
           style={{ color: ACCENT }}
         >
-          <span
-            className="h-1.5 w-1.5 rounded-full"
-            style={{ background: ACCENT }}
-            aria-hidden
-          />
           Areas we serve
         </p>
         <h2 className="mx-auto max-w-3xl font-serif text-5xl font-medium tracking-tight text-slate-900 sm:text-6xl">

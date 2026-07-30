@@ -14,10 +14,9 @@ export function FinalCTASection() {
         <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary/20 blur-[120px]" />
 
         <div className="relative">
-          <div className="inline-flex items-center gap-2 text-xs font-700 uppercase tracking-[0.24em] text-white/60">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#ff2b1f]" aria-hidden />
+          <p className="text-xs font-700 uppercase tracking-[0.24em] text-white/60">
             Enquiry to Confidence
-          </div>
+          </p>
 
           <h2 className="mt-8 font-display text-4xl leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
             Got a household need

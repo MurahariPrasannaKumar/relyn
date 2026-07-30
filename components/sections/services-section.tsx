@@ -295,14 +295,9 @@ export function ServicesSection() {
       <div className="sticky top-0 flex h-screen w-full items-center overflow-hidden">
         <div className="absolute inset-x-0 top-28 z-10 mx-auto max-w-3xl px-6 text-center">
           <p
-            className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] shadow-sm backdrop-blur-md"
+            className="mb-4 text-xs font-bold uppercase tracking-[0.2em]"
             style={{ color: "#ec1561" }}
           >
-            <span
-              className="h-1.5 w-1.5 rounded-full"
-              style={{ background: "#ec1561" }}
-              aria-hidden
-            />
             Services
           </p>
           <h2 className="font-display text-3xl tracking-tight text-ink sm:text-4xl">

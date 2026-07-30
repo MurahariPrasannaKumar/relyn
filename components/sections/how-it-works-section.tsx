@@ -52,14 +52,9 @@ export function HowItWorksSection() {
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <div
-              className="inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] shadow-sm backdrop-blur-md"
+              className="text-xs font-bold uppercase tracking-[0.2em]"
               style={{ color: "#ec1561" }}
             >
-              <span
-                className="h-1.5 w-1.5 rounded-full"
-                style={{ background: "#ec1561" }}
-                aria-hidden
-              />
               How It Works
             </div>
             <h2 className="mt-8 font-display text-4xl tracking-tight text-black sm:text-5xl lg:text-6xl">

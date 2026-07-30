@@ -75,14 +75,9 @@ export function ContactSection() {
           />
 
           <div className="relative">
-            <div className="inline-flex items-center gap-2 text-xs font-700 uppercase tracking-[0.24em] text-white/60">
-              <span
-                className="h-1.5 w-1.5 rounded-full"
-                style={{ background: ACCENT }}
-                aria-hidden
-              />
+            <p className="text-xs font-700 uppercase tracking-[0.24em] text-white/60">
               Get in touch
-            </div>
+            </p>
 
             <h3 className="mt-6 font-display text-3xl leading-[1.1] tracking-tight text-white sm:text-4xl">
               We&apos;re here to help, every step of the way.
