@@ -96,8 +96,41 @@ export function AreasSection() {
         </p>
       </div>
 
+      {/* Mobile: a simple readable list — the network map's coordinates are
+          tuned for a wide aspect ratio and collide badly on narrow screens */}
+      <div className="mt-10 grid grid-cols-1 gap-3 sm:hidden">
+        {nodes.map((node) => (
+          <div
+            key={node.name}
+            className="flex items-center justify-between gap-3 rounded-2xl border border-border bg-white px-4 py-3.5 shadow-soft"
+          >
+            <div className="flex items-center gap-3">
+              <span
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+                style={{
+                  background: node.hub ? `${ACCENT}1a` : "rgba(100,116,139,0.1)",
+                }}
+              >
+                <MapPin
+                  className="h-4 w-4"
+                  style={{ color: node.hub ? ACCENT : "#64748b" }}
+                  strokeWidth={2}
+                />
+              </span>
+              <p className="text-sm font-semibold text-slate-800">{node.name}</p>
+            </div>
+            <p
+              className="shrink-0 text-[10px] font-bold uppercase tracking-widest"
+              style={{ color: node.hub ? ACCENT : "#64748b" }}
+            >
+              {node.status}
+            </p>
+          </div>
+        ))}
+      </div>
+
       {/* Map card — sits in normal flow below the header, so it can never overlap it */}
-      <div className="relative mt-16 h-[480px] w-full overflow-hidden rounded-[34px] border border-border bg-white shadow-soft sm:h-[560px]">
+      <div className="relative mt-16 hidden h-[480px] w-full overflow-hidden rounded-[34px] border border-border bg-white shadow-soft sm:block sm:h-[560px]">
         {/* Dotted "world map" texture */}
         <div className="absolute inset-0 bg-[radial-gradient(rgba(15,23,42,0.12)_1px,transparent_1.4px)] bg-[size:18px_18px] [mask-image:radial-gradient(ellipse_90%_90%_at_50%_50%,#000_45%,transparent_100%)]" />
 
@@ -134,9 +167,10 @@ export function AreasSection() {
           {/* Render multiple traveling dots per path */}
           {paths.flatMap((_, i) =>
             Array.from({ length: DOTS_PER_PATH }).map((_, j) => (
-              <circle
+              <ellipse
                 key={`dot-${i}-${j}`}
-                r="0.32"
+                rx="0.32"
+                ry="0.7"
                 fill={ACCENT}
                 style={{ filter: `drop-shadow(0 0 1.5px ${ACCENT})` }}
                 className={`areas-travel-dot-${i}-${j}`}
@@ -224,6 +258,7 @@ export function AreasSection() {
               (_, j) => `
               .areas-travel-dot-${i}-${j} {
                 offset-path: path('${d}');
+                offset-rotate: 0deg;
                 animation: areas-travel 4s ease-in-out ${i * 0.3 + j * 1.4}s infinite;
               }
             `,
