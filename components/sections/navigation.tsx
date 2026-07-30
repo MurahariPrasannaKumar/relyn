@@ -10,7 +10,7 @@ const links = [
   { label: "How it Works", href: "#how-it-works" },
   { label: "About", href: "#about" },
   { label: "FAQs", href: "#faqs" },
-  { label: "Contact", href: "#contact" }
+  { label: "Contact", href: "/contact" }
 ];
 
 export function Navigation() {
@@ -25,19 +25,19 @@ export function Navigation() {
   }, []);
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 px-4 py-3 transition-all duration-300 sm:px-6 lg:px-8",
-        scrolled && "bg-background/76 backdrop-blur-xl"
-      )}
-    >
-      <nav className="mx-auto grid h-[74px] max-w-[1280px] grid-cols-[1fr_auto_1fr] items-center px-2 sm:px-4">
-        <a href="#" className="flex items-center gap-3 text-[21px] font-600 text-black">
+    <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 py-4 sm:px-6 lg:px-8">
+      <nav
+        className={cn(
+          "mx-auto grid h-[64px] w-full max-w-[1200px] grid-cols-[1fr_auto_1fr] items-center rounded-full border border-white/60 bg-white/55 px-4 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-2xl transition-all duration-300 sm:px-6",
+          scrolled && "bg-white/70 shadow-[0_10px_40px_rgba(0,0,0,0.1)]"
+        )}
+      >
+        <a href="/" className="flex items-center gap-3 text-[21px] font-600 text-black">
           <span className="relative h-7 w-7" aria-hidden>
             {Array.from({ length: 8 }).map((_, index) => (
               <span
                 key={index}
-                className="absolute left-1/2 top-1/2 h-3.5 w-1.5 origin-[50%_14px] -translate-x-1/2 -translate-y-[14px] rounded-full bg-[#ff2b1f]"
+                className="absolute left-1/2 top-1/2 h-3.5 w-1.5 origin-[50%_14px] -translate-x-1/2 -translate-y-[14px] rounded-full bg-[#ec1561]"
                 style={{ transform: `translate(-50%, -14px) rotate(${index * 45}deg)` }}
               />
             ))}
