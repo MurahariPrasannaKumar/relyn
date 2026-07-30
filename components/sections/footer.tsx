@@ -3,9 +3,9 @@ import { Mail, Phone } from "lucide-react";
 export function Footer() {
   return (
     <footer className="overflow-hidden border-t border-border bg-background px-6 py-12 sm:px-10 lg:px-20">
-      <div className="mx-auto mt-16 max-w-[1280px] select-none text-center" aria-hidden>
+      <div className="mx-auto mt-4 max-w-[1280px] select-none text-center" aria-hidden>
         <p
-          className="font-display leading-none tracking-tight bg-clip-text text-transparent [font-size:clamp(4.5rem,16vw,13rem)]"
+          className="font-display leading-none tracking-tight bg-clip-text text-transparent [font-size:clamp(5.5rem,20vw,16rem)]"
           style={{
             backgroundImage:
               "linear-gradient(90deg, #e7e4de 0%, #e7e4de 35%, #9a968d 50%, #e7e4de 65%, #e7e4de 100%)"

@@ -1,15 +1,37 @@
-import { AreasSection } from "@/components/sections/areas-section";
-import { FAQSection } from "@/components/sections/faq-section";
-import { FinalCTASection } from "@/components/sections/final-cta-section";
+import dynamic from "next/dynamic";
 import { Footer } from "@/components/sections/footer";
 import { HeroSection } from "@/components/sections/hero-section";
-import { HowItWorksSection } from "@/components/sections/how-it-works-section";
-import { LookingForWorkSection } from "@/components/sections/looking-for-work-section";
 import { Navigation } from "@/components/sections/navigation";
-import { ServicesSection } from "@/components/sections/services-section";
-import { TestimonialsSection } from "@/components/sections/testimonials-section";
-import { TrustStorySection } from "@/components/sections/trust-story-section";
-import { WhyChooseSection } from "@/components/sections/why-choose-section";
+
+const TrustStorySection = dynamic(() =>
+  import("@/components/sections/trust-story-section").then((mod) => mod.TrustStorySection)
+);
+const WhyChooseSection = dynamic(() =>
+  import("@/components/sections/why-choose-section").then((mod) => mod.WhyChooseSection)
+);
+const ServicesSection = dynamic(() =>
+  import("@/components/sections/services-section").then((mod) => mod.ServicesSection)
+);
+const HowItWorksSection = dynamic(() =>
+  import("@/components/sections/how-it-works-section").then((mod) => mod.HowItWorksSection)
+);
+const TestimonialsSection = dynamic(() =>
+  import("@/components/sections/testimonials-section").then((mod) => mod.TestimonialsSection)
+);
+const AreasSection = dynamic(() =>
+  import("@/components/sections/areas-section").then((mod) => mod.AreasSection)
+);
+const LookingForWorkSection = dynamic(() =>
+  import("@/components/sections/looking-for-work-section").then(
+    (mod) => mod.LookingForWorkSection
+  )
+);
+const FAQSection = dynamic(() =>
+  import("@/components/sections/faq-section").then((mod) => mod.FAQSection)
+);
+const FinalCTASection = dynamic(() =>
+  import("@/components/sections/final-cta-section").then((mod) => mod.FinalCTASection)
+);
 
 export default function App() {
   return (

@@ -92,6 +92,8 @@ const TestimonialCard = ({ item }: { item: (typeof testimonials)[0] }) => (
         <img
           src={item.img}
           alt={item.author}
+          loading="lazy"
+          decoding="async"
           className="w-11 h-11 rounded-full object-cover ring-2 ring-white shadow-sm flex-shrink-0"
         />
         <div>
