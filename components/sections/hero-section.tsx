@@ -67,7 +67,8 @@ export function Hero3D() {
           />
         ))}
       </div>
-      <div className="absolute inset-y-0 left-0 z-[-1] w-full max-w-3xl bg-gradient-to-r from-background/95 via-background/55 to-transparent" />
+      <div className="absolute inset-y-0 left-0 z-[-1] w-[92%] max-w-3xl bg-gradient-to-r from-background via-background/90 to-transparent sm:w-full" />
+      <div className="absolute inset-x-0 bottom-0 z-[-1] h-1/2 bg-gradient-to-t from-background/60 to-transparent sm:hidden" />
 
       <div className="pointer-events-none absolute inset-0 opacity-[0.28]">
         <ParticleField className="h-full w-full" />
@@ -95,7 +96,7 @@ export function Hero3D() {
           </motion.div>
           <motion.h1
             variants={heroItem}
-            className="mt-7 font-display tracking-tight text-black [font-size:clamp(2.25rem,3.4vw+1rem,3.75rem)] [line-height:1.12]"
+            className="mt-7 font-display tracking-tight text-black [font-size:clamp(2.25rem,3.4vw+1rem,3.75rem)] [line-height:1.12] [text-shadow:0_2px_28px_rgba(249,248,246,0.9)]"
           >
             <span className="block">Reliable household help</span>
             <span className="block">without the guesswork.</span>
